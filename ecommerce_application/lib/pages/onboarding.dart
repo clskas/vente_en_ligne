@@ -1,3 +1,4 @@
+import 'package:ecommerce_application/pages/sign_up.dart';
 import 'package:flutter/material.dart';
 
 class Onboarding extends StatefulWidget {
@@ -35,19 +36,27 @@ class _OnboardingState extends State<Onboarding> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Container(
-                    margin: EdgeInsets.only(right: 20.0),
-                    padding: EdgeInsets.all(20.0),
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Text(
-                      "Next",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SignUp()),
+                      );
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(right: 20.0),
+                      padding: EdgeInsets.all(20.0),
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Text(
+                        "Next",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),

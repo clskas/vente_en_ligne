@@ -1,6 +1,6 @@
 import 'package:ecommerce_application/pages/admin/home_admin.dart';
 import 'package:ecommerce_application/pages/bottomnav.dart';
-import 'package:ecommerce_application/pages/profile.dart';
+import 'package:ecommerce_application/pages/onboarding.dart';
 import 'package:ecommerce_application/pages/services/constant.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: HomeAdmin(),
+      home: Onboarding(),
     );
   }
 }

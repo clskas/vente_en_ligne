@@ -58,7 +58,7 @@ class DatabaseMethods {
         .collection("Products")
         .where(
           "SearchKey",
-          isEqualTo: updatedname.substring(0,1).toUpperCase(),
+          isEqualTo: updatedname.substring(0, 1).toUpperCase(),
         )
         .get();
   }

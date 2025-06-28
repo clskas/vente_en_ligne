@@ -24,6 +24,7 @@ class ProductDetail extends StatefulWidget {
 
 class _ProductDetailState extends State<ProductDetail> {
   String? name, email, image;
+  int quantity = 1, totalprice = 0;
 
   getthesharedpref() async {
     name = await SharedPreferenceHelper().getUserName();
@@ -39,6 +40,7 @@ class _ProductDetailState extends State<ProductDetail> {
 
   @override
   void initState() {
+    totalprice = int.parse(widget.price);
     ontheload();
     super.initState();
   }
@@ -111,29 +113,116 @@ class _ProductDetailState extends State<ProductDetail> {
                       widget.detail,
                       style: Appwidget.semiboldTextFieldStyle(),
                     ),
-                    SizedBox(height: 80.0),
-                    GestureDetector(
-                      onTap: () {
-                        makePayment(widget.price);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Color(0xfffd6f3e),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        width: MediaQuery.of(context).size.width,
-                        padding: EdgeInsets.symmetric(vertical: 10.0),
-                        child: Center(
-                          child: Text(
-                            "Buy Now",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
+                    SizedBox(height: 10.0),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              quantity = quantity + 1;
+                              totalprice = totalprice + int.parse(widget.price);
+                              setState(() {});
+                            },
+                            child: Material(
+                              elevation: 3.0,
+                              borderRadius: BorderRadius.circular(10.0),
+
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Color(0xfffd6f3e),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: Icon(
+                                  Icons.add,
+                                  color: Colors.white,
+                                  size: 30.0,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
+                        SizedBox(width: 10.0),
+                        Text(
+                          quantity.toString(),
+                          style: Appwidget.boldTextFieldStyle(),
+                        ),
+                        SizedBox(width: 10.0),
+                        GestureDetector(
+                          onTap: () {
+                            if (quantity > 1) {
+                              quantity = quantity - 1;
+                              totalprice = totalprice - int.parse(widget.price);
+                              setState(() {});
+                            }
+                          },
+                          child: Material(
+                            elevation: 3.0,
+                            borderRadius: BorderRadius.circular(10.0),
+
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Color(0xfffd6f3e),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Icon(
+                                Icons.remove,
+                                color: Colors.white,
+                                size: 30.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Material(
+                          elevation: 3.0,
+                          borderRadius: BorderRadius.circular(20.0),
+                          child: Container(
+                            height: 50,
+                            width: 120,
+                            decoration: BoxDecoration(
+                              color: Color(0xfffd6f3e),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            child: Center(
+                              child: Text(
+                                "\$$totalprice",
+                                style: Appwidget.boldTextFieldStyle(),
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        SizedBox(width: 15.0),
+                        GestureDetector(
+                          onTap: () {
+                            makePayment(totalprice.toString());
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Color(0xfffd6f3e),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            width: MediaQuery.of(context).size.width / 2.2,
+                            padding: EdgeInsets.symmetric(vertical: 10.0),
+                            child: Center(
+                              child: Text(
+                                "Buy Now",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(height: 20.0),
                   ],
@@ -175,8 +264,10 @@ class _ProductDetailState extends State<ProductDetail> {
               "Name": name,
               "Email": email,
               "Image": image,
+              "Quantity": quantity,
+              "Total": totalprice,
               "ProductImage": widget.image,
-              "Status":"On the way",
+              "Status": "On the way",
             };
             await DatabaseMethods().orderDetails(orderInfoMap);
             showDialog(

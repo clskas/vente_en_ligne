@@ -78,7 +78,26 @@ class _OrderState extends State<Order> {
                                     style: Appwidget.semiboldTextFieldStyle(),
                                   ),
                                   Text(
-                                    "\$${ds["Price"]}",
+                                    "PU :"
+                                    " \$${ds["Price"]}",
+                                    style: TextStyle(
+                                      color: Color(0xfffd6f3e),
+                                      fontSize: 23.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    // ignore: prefer_interpolation_to_compose_strings
+                                    "Quantity :" + ds["Quantity"].toString(),
+                                    style: TextStyle(
+                                      color: Color(0xfffd6f3e),
+                                      fontSize: 23.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    // ignore: prefer_interpolation_to_compose_strings
+                                    "Total :" + ds["Total"].toString(),
                                     style: TextStyle(
                                       color: Color(0xfffd6f3e),
                                       fontSize: 23.0,

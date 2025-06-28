@@ -14,7 +14,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  bool search = false;
+  bool searchproduct = false;
 
   List categories = [
     "assets/images/headphone_icon.png",
@@ -30,14 +30,14 @@ class _HomeState extends State<Home> {
   TextEditingController searchcontroller = TextEditingController();
 
   initiateSearch(value) {
-    if (value.length == 0) {
+    if (value == 0) {
       setState(() {
         queryResultSet = [];
         tempSearchStore = [];
       });
     }
     setState(() {
-      search = true;
+      searchproduct = true;
     });
 
     var capitalizedValue =
@@ -50,6 +50,7 @@ class _HomeState extends State<Home> {
       });
     } else {
       tempSearchStore = [];
+
       for (var element in queryResultSet) {
         if (element["Updatedname"].startsWith(capitalizedValue)) {
           setState(() {
@@ -128,24 +129,26 @@ class _HomeState extends State<Home> {
                         borderRadius: BorderRadius.circular(30.0),
                       ),
                       child: TextField(
-                        controller: searchcontroller,
+                        
+                        //controller: searchcontroller,
                         onChanged: (value) {
+
                           initiateSearch(value.toUpperCase());
                         },
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: "Search Products",
                           hintStyle: Appwidget.lightTextFieldStyle(),
-                          prefixIcon: search
+                          prefixIcon: searchproduct
                               ? GestureDetector(
                                   onTap: () {
-                                    search = false;
+                                    searchproduct = false;
                                     tempSearchStore = [];
                                     queryResultSet = [];
                                     searchcontroller.text = "";
                                     setState(() {});
                                   },
-                                  child: Icon(Icons.close, color: Colors.red,),
+                                  child: Icon(Icons.close, color: Colors.red),
                                 )
                               : Icon(Icons.search, color: Colors.black),
                         ),
@@ -153,7 +156,7 @@ class _HomeState extends State<Home> {
                     ),
                     SizedBox(height: 20.0),
                     //Partie categorie et See all
-                    search
+                    searchproduct
                         ? ListView(
                             padding: EdgeInsets.only(left: 10.0, right: 10.0),
                             primary: false,
